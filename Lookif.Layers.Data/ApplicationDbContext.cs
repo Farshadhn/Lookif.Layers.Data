@@ -24,15 +24,14 @@ namespace Lookif.Layers.Data
             //optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=LookifDictionary;Integrated Security=true");
             base.OnConfiguring(optionsBuilder);
         }
-
+        public static Assembly CoreLayerAssembly { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            var entitiesAssembly = typeof(IEntity).Assembly;
 
-            modelBuilder.RegisterAllEntities<IEntity>(entitiesAssembly);
-            modelBuilder.RegisterEntityTypeConfiguration(entitiesAssembly);
+            modelBuilder.RegisterAllEntities<IEntity>(CoreLayerAssembly);
+            modelBuilder.RegisterEntityTypeConfiguration(CoreLayerAssembly);
             modelBuilder.AddRestrictDeleteBehaviorConvention();
             modelBuilder.AddSequentialGuidForIdConvention();
             modelBuilder.AddPluralizingTableNameConvention();
