@@ -16,7 +16,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Lookif.Layers.Core" Version="1.0.6" />
+    <PackageReference Include="Lookif.Layers.Core" Version="1.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.8" />
 
   </ItemGroup>
