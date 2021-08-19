@@ -13,14 +13,16 @@ namespace Lookif.Layers.Data.Repositories
 {
    
 
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, IEntity
+    public class Repository<TEntity,TContext> : IRepository<TEntity> 
+        where TEntity : class, IEntity
+        where TContext : ApplicationDbContext
     {
-        protected readonly ApplicationDbContext DbContext;
+        protected readonly TContext DbContext;
         public DbSet<TEntity> Entities { get; }
         public virtual IQueryable<TEntity> Table => Entities;
         public virtual IQueryable<TEntity> TableNoTracking => Entities.AsNoTracking();
 
-        public Repository(ApplicationDbContext dbContext)
+        public Repository(TContext dbContext)
         {
             DbContext = dbContext;
             Entities = DbContext.Set<TEntity>(); // City => Cities 
