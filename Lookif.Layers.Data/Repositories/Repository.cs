@@ -4,10 +4,10 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks; 
-using Microsoft.EntityFrameworkCore;
-using Lookif.Layers.Data.Contracts;
+using Microsoft.EntityFrameworkCore; 
 using Lookif.Layers.Core.MainCore.Base;
 using Lookif.Library.Common.Utilities;
+using Lookif.Layers.Core.Infrastructure.Base.Repositories;
 
 namespace Lookif.Layers.Data.Repositories
 {
