@@ -6,14 +6,13 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
-using Lookif.Layers.Core.MainCore.Base;
 using Lookif.Layers.Core.Infrastructure.Base.Repositories;
 using Lookif.Layers.Core.MainCore.Identities;
+using Lookif.Layers.Core.Infrastructure.Base.Lookif.Library.Common;
 
 namespace Lookif.Layers.Data.Repositories
 {
-    public class UserRepository : Repository<User, ApplicationDbContext>, IUserRepository, IScopedDependency 
+    public class UserRepository : Repository<User>, IUserRepository, IScopedDependency 
     {
         public UserRepository(ApplicationDbContext dbContext)
             : base(dbContext)
@@ -29,7 +28,7 @@ namespace Lookif.Layers.Data.Repositories
         public Task UpdateSecuirtyStampAsync(User user, CancellationToken cancellationToken)
         {
             user.SecurityStamp = Guid.NewGuid().ToString();
-            return UpdateAsync(user, cancellationToken);
+            return base.UpdateAsync(user, cancellationToken);
         }
 
         public override void Update(User entity, bool saveNow = true)

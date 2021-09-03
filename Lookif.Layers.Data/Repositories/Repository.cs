@@ -11,18 +11,16 @@ using Lookif.Layers.Core.Infrastructure.Base.Repositories;
 
 namespace Lookif.Layers.Data.Repositories
 {
-   
 
-    public class Repository<TEntity,TContext> : IRepository<TEntity> 
-        where TEntity : class, IEntity
-        where TContext : ApplicationDbContext
+
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, IEntity
     {
-        protected readonly TContext DbContext;
+        protected readonly ApplicationDbContext DbContext;
         public DbSet<TEntity> Entities { get; }
         public virtual IQueryable<TEntity> Table => Entities;
         public virtual IQueryable<TEntity> TableNoTracking => Entities.AsNoTracking();
 
-        public Repository(TContext dbContext)
+        public Repository(ApplicationDbContext dbContext)
         {
             DbContext = dbContext;
             Entities = DbContext.Set<TEntity>(); // City => Cities 
@@ -31,8 +29,8 @@ namespace Lookif.Layers.Data.Repositories
         #region Async Method
         public virtual async ValueTask<TEntity> GetByIdAsync(CancellationToken cancellationToken, params object[] ids)
         {
-            var a =  await Entities.FindAsync(ids, cancellationToken);
-             
+            var a = await Entities.FindAsync(ids, cancellationToken);
+
             return a;
         }
 
@@ -42,7 +40,7 @@ namespace Lookif.Layers.Data.Repositories
             await Entities.AddAsync(entity, cancellationToken).ConfigureAwait(false);
             if (saveNow)
                 await DbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-           
+
         }
 
         public virtual async Task AddRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken, bool saveNow = true)
@@ -60,7 +58,7 @@ namespace Lookif.Layers.Data.Repositories
             Entities.Update(entity);
             if (saveNow)
                 await DbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-            
+
         }
 
         public virtual async Task UpdateRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken, bool saveNow = true)
@@ -115,7 +113,7 @@ namespace Lookif.Layers.Data.Repositories
             Assert.NotNull(entity, nameof(entity));
             Entities.Update(entity);
             if (saveNow)
-				DbContext.SaveChanges();
+                DbContext.SaveChanges();
         }
 
         public virtual void UpdateRange(IEnumerable<TEntity> entities, bool saveNow = true)

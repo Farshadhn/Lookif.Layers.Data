@@ -1,13 +1,13 @@
 ﻿using Lookif.Layers.Core.Infrastructure.Base;
 using Lookif.Layers.Core.Infrastructure.Base.DataInitializer;
-using Microsoft.AspNetCore.Identity;
+using Lookif.Layers.Core.Infrastructure.Base.Lookif.Library.Common; 
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 
 namespace Lookif.Layers.Data.Repositories
 {
-    public class DataBaseService : IDataBaseService 
+    public class DataBaseService : IDataBaseService  , ISingletonDependency
     {
         protected readonly ApplicationDbContext  DbContext; //ToDo Make it generic
 
