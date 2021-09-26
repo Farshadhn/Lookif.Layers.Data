@@ -8,7 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Lookif.Layers.Core.Infrastructure.Base.Repositories;
 using Lookif.Layers.Core.MainCore.Identities;
-using Lookif.Layers.Core.Infrastructure.Base.Lookif.Library.Common;
+using Lookif.Layers.Core.Infrastructure.Base;
 
 namespace Lookif.Layers.Data.Repositories
 {
