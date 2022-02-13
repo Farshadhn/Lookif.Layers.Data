@@ -8,6 +8,8 @@ using Lookif.Layers.Core.MainCore.Identities;
 using Lookif.Library.Common.Utilities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Lookif.Layers.Data
 {
@@ -57,10 +59,56 @@ namespace Lookif.Layers.Data
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
+            
             _cleanString();
             return base.SaveChangesAsync(cancellationToken);
         }
+        private void SoftDelete()
+        {
+            foreach (var entry in ChangeTracker.Entries())
+            {
+                switch (entry.State)
+                {
+                    //case EntityState.Added:
+                    //    entry.CurrentValues["IsDeleted"] = false;
+                    //    // iterate over each nav. prop to performe cascade soft delete = false
 
+                    //    break;
+
+                    case EntityState.Deleted:
+                        entry.State = EntityState.Modified;
+                        entry.CurrentValues["IsDeleted"] = true;
+                        // iterate over each nav. prop to performe cascade soft delete = true
+                        IterateThroughNavigationProperties(entry);
+                        break;
+                }
+            }
+        }
+        private void IterateThroughNavigationProperties(EntityEntry entry)
+        {
+            foreach (var navigationEntry in entry.Navigations.Where(n => !((INavigation)n.Metadata).IsOnDependent))
+            {
+                if (navigationEntry is CollectionEntry collectionEntry)
+                {
+                    foreach (var dependentEntry in collectionEntry.CurrentValue)
+                    {
+                        HandleDependent(Entry(dependentEntry));
+                    }
+                }
+                else
+                {
+                    var dependentEntry = navigationEntry.CurrentValue;
+                    if (dependentEntry != null)
+                    {
+                        HandleDependent(Entry(dependentEntry));
+                    }
+                }
+            }
+        }
+        private void HandleDependent(EntityEntry entry)
+        {
+            entry.CurrentValues["IsDeleted"] = true;
+        }
         private void _cleanString()
         {
             var changedEntities = ChangeTracker.Entries()

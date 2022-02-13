@@ -3,6 +3,7 @@ using Lookif.Layers.Core.Infrastructure.Base.DataInitializer;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Lookif.Layers.Data.Repositories
 {
@@ -27,10 +28,10 @@ namespace Lookif.Layers.Data.Repositories
                 DbContext.Database.Migrate();
             }
 
-
-
-            foreach (var dataInitializer in dataInitializers)
+            foreach (var dataInitializer in dataInitializers.OrderBy(x => x.order))
                 dataInitializer.InitializeData();
+
+            
 
         }
 
