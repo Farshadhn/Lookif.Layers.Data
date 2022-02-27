@@ -25,7 +25,10 @@ namespace Lookif.Layers.Data.Repositories
             else
             {
                 //Applies any pending migrations for the context to the database like (Update-Database)
-                DbContext.Database.Migrate();
+                if (DbContext.Database.IsRelational())
+                {
+                    DbContext.Database.Migrate();
+                }
             }
 
             foreach (var dataInitializer in dataInitializers.OrderBy(x => x.order))
