@@ -3,6 +3,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Lookif.Layers.Core.Infrastructure;
 using Lookif.Layers.Core.MainCore.Base;
 using Lookif.Layers.Core.MainCore.Identities;
 using Lookif.Library.Common.Utilities;
@@ -14,7 +15,6 @@ using Microsoft.EntityFrameworkCore.Metadata;
 namespace Lookif.Layers.Data
 {
     public abstract class ApplicationDbContext : IdentityDbContext<User, Role, Guid>
-    //DbContext
     {
         public ApplicationDbContext(DbContextOptions options)
             : base(options)
@@ -23,7 +23,6 @@ namespace Lookif.Layers.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=LookifDictionary;Integrated Security=true");
             base.OnConfiguring(optionsBuilder);
         }
         public static Assembly CoreLayerAssembly { get; set; }
@@ -32,7 +31,7 @@ namespace Lookif.Layers.Data
             base.OnModelCreating(modelBuilder);
 
 
-            modelBuilder.RegisterAllEntities<IEntity>(CoreLayerAssembly);
+            modelBuilder.RegisterAllEntities<IEntity,ITemporal>(CoreLayerAssembly);
             modelBuilder.RegisterEntityTypeConfiguration(CoreLayerAssembly);
             modelBuilder.AddRestrictDeleteBehaviorConvention();
             modelBuilder.AddSequentialGuidForIdConvention();
