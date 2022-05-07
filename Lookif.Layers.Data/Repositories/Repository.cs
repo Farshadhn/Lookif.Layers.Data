@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Lookif.Layers.Core.MainCore.Base;
 using Lookif.Library.Common.Utilities;
 using Lookif.Layers.Core.Infrastructure.Base.Repositories;
+using Lookif.Layers.Core.Infrastructure;
 
 namespace Lookif.Layers.Data.Repositories
 {
@@ -34,10 +35,10 @@ namespace Lookif.Layers.Data.Repositories
             return a;
         }
 
-        public virtual IQueryable<TEntity> GetTemporal()
+        public virtual IQueryable<TEntity> GetTemporal<Temporal>() where Temporal : ITemporal , TEntity
             => Entities.TemporalAll<TEntity>();
 
-        public virtual async Task<List<TEntity>> GetTemporal(CancellationToken cancellationToken)
+        public virtual async Task<List<TEntity>> GetTemporal<Temporal>(CancellationToken cancellationToken) where Temporal : ITemporal, TEntity
             => await Entities.TemporalAll<TEntity>().ToListAsync(cancellationToken);
 
         public virtual async Task AddAsync(TEntity entity, CancellationToken cancellationToken, bool saveNow = true)

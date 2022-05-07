@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <Version>2.0.1</Version>
+    <Version>2.0.1.1</Version>
     <Authors>Farshad</Authors>
     <Company>Lookif</Company>
     <Product>Application Context and repository Related to "Lookif template"</Product>
@@ -11,8 +11,8 @@
     <RepositoryUrl>https://github.com/Farshadhn/Lookif.Layers.Data</RepositoryUrl>
     <Description>Application Context and repository Related to "Lookif template"</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <AssemblyVersion>2.0.1</AssemblyVersion>
-    <FileVersion>2.0.1</FileVersion>
+    <AssemblyVersion>2.0.1.1</AssemblyVersion>
+    <FileVersion>2.0.1.1</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Lookif.Layers.Core" Version="2.0.3" />
+    <PackageReference Include="Lookif.Layers.Core" Version="2.0.3.2" />
     <PackageReference Include="Lookif.Library.Common" Version="2.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.4" />
 
