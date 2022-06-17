@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-
+    <Version>2.0.1.1</Version>
     <Authors>Farshad</Authors>
     <Company>Lookif</Company>
     <Product>Application Context and repository Related to "Lookif template"</Product>
@@ -13,7 +13,6 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <AssemblyVersion>2.0.2</AssemblyVersion>
     <FileVersion>2.0.2</FileVersion>
-	  <Version>2.0.2</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,10 +22,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Lookif.Layers.Core" Version="2.0.3.5" />
-    <PackageReference Include="Lookif.Library.Common" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.4" />
 
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Lookif.Library.Common\Lookif.Common\Lookif.Library.Common.csproj" />
   </ItemGroup>
 
 </Project>

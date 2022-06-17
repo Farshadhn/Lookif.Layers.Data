@@ -32,6 +32,7 @@ namespace Lookif.Layers.Data
 
 
             modelBuilder.RegisterAllEntities<IEntity,ITemporal>(CoreLayerAssembly);
+            modelBuilder.RegisterAllEntities<IEntity<Guid>,ITemporal>(CoreLayerAssembly);
             modelBuilder.RegisterEntityTypeConfiguration(CoreLayerAssembly);
             modelBuilder.AddRestrictDeleteBehaviorConvention();
             modelBuilder.AddSequentialGuidForIdConvention();
