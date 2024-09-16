@@ -24,7 +24,6 @@
 
   <ItemGroup>
     <PackageReference Include="Lookif.Layers.Core" Version="3.0.0" />
-    <PackageReference Include="Lookif.Library.Common" Version="3.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.8" />
 
   </ItemGroup>
