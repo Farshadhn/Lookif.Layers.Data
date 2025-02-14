@@ -70,13 +70,13 @@ public class Repository<TEntity, Tkey> : IRepository<TEntity, Tkey> where TEntit
 
     public virtual async Task UpdateAsync(TEntity entity, CancellationToken cancellationToken, bool saveNow = true)
     {
-            Assert.NotNull(entity, nameof(entity));
-            Detach(entity);
-            ChangeState(entity, EntityState.Modified);
-            Entities.Update(entity);
-            if (saveNow)
-                await DbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-     
+        Assert.NotNull(entity, nameof(entity));
+        Detach(entity);
+        ChangeState(entity, EntityState.Modified);
+        Entities.Update(entity);
+        if (saveNow)
+            await DbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+
     }
 
     public virtual async Task UpdateRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken, bool saveNow = true)
@@ -161,7 +161,7 @@ public class Repository<TEntity, Tkey> : IRepository<TEntity, Tkey> where TEntit
     #endregion
 
     #region Attach & Detach
-    private  void ChangeState(TEntity entity, EntityState entityState)
+    private void ChangeState(TEntity entity, EntityState entityState)
     {
         Assert.NotNull(entity, nameof(entity));
         var entry = DbContext.Entry(entity);
