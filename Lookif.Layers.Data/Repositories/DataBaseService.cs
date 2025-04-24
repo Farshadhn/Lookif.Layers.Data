@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Lookif.Layers.Data.Repositories;
 
@@ -15,29 +16,29 @@ public class DataBaseService : IDataBaseService, ISingletonDependency
     {
         DbContext = dbContext;
     }
-    public async void RefreshDatabase(List<IDataInitializer> dataInitializers, bool Do_not_use_Migrations = false)
+    public async Task RefreshDatabaseAsync(List<IDataInitializer> dataInitializers, bool useMigration = true)
     {
-        if (Do_not_use_Migrations)
+        if (useMigration)
         {
-            //Do not use Migrations, just Create Database with latest changes
-            DbContext.Database.EnsureCreated();
-        }
-        else
-        {
-            //Applies any pending migrations for the context to the database like (Update-Database)
             if (DbContext.Database.IsRelational())
             {
-
+                //Applies any pending migrations for the context to the database like (Update-Database)
                 var pedingMigraions = await DbContext.Database.GetPendingMigrationsAsync();
                 if (pedingMigraions.Any())
-                    DbContext.Database.Migrate();
+                    await DbContext.Database.MigrateAsync();
 
 
             }
+           
+        }
+        else
+        {
+            //Do not use Migrations, just Create Database with latest changes
+            await DbContext.Database.EnsureCreatedAsync();
         }
 
         foreach (var dataInitializer in dataInitializers.OrderBy(x => x.order))
-            dataInitializer.InitializeData();
+            await dataInitializer.InitializeDataAsync();
 
 
 
