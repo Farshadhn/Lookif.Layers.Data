@@ -14,7 +14,16 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Lookif.Layers.Data;
 
-public abstract class ApplicationDbContext : IdentityDbContext<User, Role, Guid>
+public abstract class ApplicationDbContext : ApplicationDbContext<User>
+{
+    public ApplicationDbContext(DbContextOptions options)
+        : base(options)
+    {
+    }
+}
+
+
+public abstract class ApplicationDbContext<TUser> : IdentityDbContext<TUser, Role, Guid> where TUser : User
 {
     public ApplicationDbContext(DbContextOptions options)
         : base(options)

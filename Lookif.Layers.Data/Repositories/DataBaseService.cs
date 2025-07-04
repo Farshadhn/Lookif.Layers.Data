@@ -1,7 +1,6 @@
 ﻿using Lookif.Layers.Core.Infrastructure.Base;
 using Lookif.Layers.Core.Infrastructure.Base.DataInitializer;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -37,7 +36,7 @@ public class DataBaseService : IDataBaseService, ISingletonDependency
             await DbContext.Database.EnsureCreatedAsync();
         }
 
-        foreach (var dataInitializer in dataInitializers.OrderBy(x => x.order))
+        foreach (var dataInitializer in dataInitializers.OrderBy(x => x.Order))
             await dataInitializer.InitializeDataAsync();
 
 
